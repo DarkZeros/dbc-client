@@ -1,11 +1,13 @@
 #include "mainwindow.h"
 #include <QApplication>
 
-#include "core/include/dbcore.h"
+#include "core/source/core.h"
 
 int main(int argc, char *argv[])
 {
-    DBC("hi.db");
+    DBC::Core dbc;
+    //dbc.checkPoW();
+
 
     QApplication a(argc, argv);
     MainWindow w;

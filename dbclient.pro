@@ -27,6 +27,7 @@ else:unix: LIBS += -L$$OUT_PWD/core/ -ldbcore
 
 #For Static lib
 LIBS += -ldl
+LIBS += -lprotobuf
 
 INCLUDEPATH += $$PWD/core
 DEPENDPATH += $$PWD/core
