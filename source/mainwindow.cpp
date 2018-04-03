@@ -11,30 +11,48 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
 
     //Attach the logger
-    dbc_auto_logger.attach(std::bind(&MainWindow::new_logs, this, std::placeholders::_1, std::placeholders::_2));
+    dbc_auto_logger.attach(std::bind(&MainWindow::logs_callback, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3));
 
     //Initialize core
-    dbc.initialize();
+    if(dbc.initialize()){
+        //TODO show window with the reason
+        QMetaObject::invokeMethod(this, "close", Qt::QueuedConnection);
+    }
 }
 
 MainWindow::~MainWindow() {
     delete ui;
 }
 
-void MainWindow::new_logs(DBC::LogLevel level, const std::string & str){
+void MainWindow::logs_callback(DBC::LogType type, DBC::LogLevel level, const std::string & str){
+    //Create color with level
+    QColor color(0,0,0);
     switch(level){
-    case DBC::LogLevel::DEBUG: ui->textBrowser->setTextColor(QColor(0,0,200)); break;
-    case DBC::LogLevel::INFO: ui->textBrowser->setTextColor(QColor(0,100,0)); break;
-    case DBC::LogLevel::WARNING: ui->textBrowser->setTextColor(QColor(239, 127, 26)); break;
-    case DBC::LogLevel::ERROR: ui->textBrowser->setTextColor(QColor(250,0,0)); break;
-    default:
-        ui->textBrowser->setTextColor(QColor(0,0,0));
+    case DBC::LogLevel::DEBUG: color.setBlue(200); break;
+    case DBC::LogLevel::INFO: color.setGreen(100); break;
+    case DBC::LogLevel::WARNING: color = QColor(239, 127, 26); break;
+    case DBC::LogLevel::ERROR: color.setRed(250); break;
+    default: break;
     }
 
-    ui->textBrowser->append(QString(str.c_str()));
+    //Construct string from str & type
+    QString qstr;
+    if(type != DBC::LogType::NOTYPE){
+        qstr.append(QString(DBC::Logger::type2str[type]));
+        qstr.append(QString(": "));
+    }
+    qstr.append(QString(str.c_str()));
+
+    //Queue it to be run by the UI
+    QMetaObject::invokeMethod(this, "append_log", Qt::QueuedConnection,
+                              Q_ARG(QColor, color), Q_ARG(QString, qstr));
+}
+
+void MainWindow::append_log(QColor color, QString qstr){
+    ui->textBrowser->setTextColor(color);
+    ui->textBrowser->append(qstr);
 }
 
 void MainWindow::on_actionClose_triggered() {
-    QMetaObject::invokeMethod(this, "close",
-        Qt::QueuedConnection);
+    QMetaObject::invokeMethod(this, "close", Qt::QueuedConnection);
 }

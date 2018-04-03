@@ -16,12 +16,16 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
-    void new_logs(DBC::LogLevel level, const std::string & str);
+
+    void logs_callback(DBC::LogType type, DBC::LogLevel level, const std::string & str);
 
 private slots:
     void on_actionClose_triggered();
 
+
 private:
+    Q_INVOKABLE void append_log(QColor color, QString str);
+
     Ui::MainWindow *ui;
     DBC::Logger dbc_auto_logger;
     DBC::Core dbc;
