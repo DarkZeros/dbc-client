@@ -69,9 +69,9 @@
             </widget>
            </item>
            <item>
-            <widget class="QLabel" name="status_label_2">
+            <widget class="QLabel" name="status_local">
              <property name="text">
-              <string>??????</string>
+              <string>Idle</string>
              </property>
             </widget>
            </item>
@@ -135,13 +135,87 @@
        </widget>
       </item>
       <item>
-       <widget class="QGroupBox" name="groupBox_2">
+       <widget class="QGroupBox" name="groupBox_P2P_Stats">
         <property name="title">
          <string>P2P Network Stats</string>
         </property>
         <property name="flat">
          <bool>true</bool>
         </property>
+        <layout class="QVBoxLayout" name="verticalLayout_4">
+         <item>
+          <layout class="QHBoxLayout" name="status_layout_8">
+           <item>
+            <widget class="QLabel" name="status_p2p_1">
+             <property name="text">
+              <string>Status:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="status_p2p">
+             <property name="text">
+              <string>Disconnected</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="status_layout_7">
+           <item>
+            <widget class="QLabel" name="status_p2p_2">
+             <property name="text">
+              <string>Connections:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="status_p2p_connections">
+             <property name="text">
+              <string>0</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="status_layout_6">
+           <item>
+            <widget class="QLabel" name="status_p2p_3">
+             <property name="text">
+              <string>Chain:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="status_p2p_chain">
+             <property name="text">
+              <string>0</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="status_layout_5">
+           <item>
+            <widget class="QLabel" name="status_p2p_4">
+             <property name="text">
+              <string>Tx Pool:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="status_p2p_tx">
+             <property name="text">
+              <string>0 / 0</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+        </layout>
        </widget>
       </item>
       <item>
@@ -197,7 +271,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>22</height>
+     <height>25</height>
     </rect>
    </property>
    <property name="nativeMenuBar">

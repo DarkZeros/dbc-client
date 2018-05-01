@@ -6,7 +6,7 @@
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
-    dbc_auto_logger("MainWindow")
+    dbc_auto_logger("DB Client")
 {
     ui->setupUi(this);
 
@@ -50,6 +50,11 @@ void MainWindow::logs_callback(DBC::LogType type, DBC::LogLevel level, const std
 
 void MainWindow::append_log(QColor color, QString qstr){
     ui->textBrowser->setTextColor(color);
+    ui->textBrowser->append(qstr);
+}
+
+void MainWindow::update_p2p(){
+    ui->status_p2p_connections->setText(QString(dbc.mP2P.mClientSocket));
     ui->textBrowser->append(qstr);
 }
 
