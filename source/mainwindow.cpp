@@ -14,7 +14,7 @@ MainWindow::MainWindow(QWidget *parent) :
     dbc_auto_logger.attach(std::bind(&MainWindow::logs_callback, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3));
 
     //Initialize core
-    if(dbc.initialize()){
+    if(!dbc.initialize()){
         //TODO show window with the reason
         QMetaObject::invokeMethod(this, "close", Qt::QueuedConnection);
     }
