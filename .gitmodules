@@ -1,3 +1,9 @@
-[submodule "core"]
-	path = core
-	url = https://github.com/DarkZeros/dbc-core.git
+[submodule "pybind11"]
+	path = modules/pybind11
+	url = https://github.com/pybind/pybind11.git
+[submodule "msgpack"]
+	path = modules/msgpack
+	url = https://github.com/msgpack/msgpack-c.git
+[submodule "cryptopp"]
+	path = modules/cryptopp
+	url = https://github.com/weidai11/cryptopp
