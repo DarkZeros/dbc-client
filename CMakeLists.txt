@@ -96,11 +96,14 @@ add_executable(freedomdb-tool
   source/main_test.cpp
 )
 
-#### installation
-add_test (NAME python-tests
-  COMMAND ${PYTHON_EXECUTABLE} -m pytest ${CMAKE_CURRENT_SOURCE_DIR}
-  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/src/mypyspace
+#### Tests
+add_subdirectory(modules/Catch2)
+add_executable(native-tests 
+  tests/main.cpp
 )
+target_link_libraries(native-tests PRIVATE Catch2::Catch2WithMain)
+
+#### installation TODO
 install(TARGETS freedomdb 
   DESTINATION nodest #${PYTHON_INSTALL}
 )

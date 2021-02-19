@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import os
 import sys
@@ -110,5 +111,6 @@ setup(
     long_description="",
     ext_modules=[CMakeExtension("freedomdb")],
     cmdclass={"build_ext": CMakeBuild},
+    test_suite='tests',
     zip_safe=False,
 )

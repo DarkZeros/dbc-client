@@ -7,3 +7,6 @@
 [submodule "cryptopp"]
 	path = modules/cryptopp
 	url = https://github.com/weidai11/cryptopp
+[submodule "Catch2"]
+	path = modules/Catch2
+	url = https://github.com/catchorg/Catch2.git
