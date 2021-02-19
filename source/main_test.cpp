@@ -2,7 +2,7 @@
 #include <pqxx/pqxx>
 
 void pq1(){
-    /*try  
+    /*try
     {
         pqxx::connection C;
         std::cout << "Connected to " << C.dbname() << std::endl;
@@ -30,10 +30,10 @@ void pq1(){
 using namespace std;
 using namespace pqxx;
 int main() {
-   char * sql;
-   
+   std::string sql;
+
    try {
-      connection C("dbname = testdb user = postgres password = cohondob \
+      connection C("dbname = postgres user = postgres password = postgres \
       hostaddr = 127.0.0.1 port = 5432");
       if (C.is_open()) {
          cout << "Opened database successfully: " << C.dbname() << endl;
@@ -43,16 +43,16 @@ int main() {
       }
 
       /* Create SQL statement */
-      sql = "CREATE TABLE COMPANY("  \
-      "ID INT PRIMARY KEY     NOT NULL," \
-      "NAME           TEXT    NOT NULL," \
-      "AGE            INT     NOT NULL," \
-      "ADDRESS        CHAR(50)," \
-      "SALARY         REAL );";
+      sql = R"(CREATE TABLE COMPANY(
+      ID INT PRIMARY KEY     NOT NULL,
+      NAME           TEXT    NOT NULL,
+      AGE            INT     NOT NULL,
+      ADDRESS        CHAR(50),
+      SALARY         REAL );)";
 
       /* Create a transactional object. */
       work W(C);
-      
+
       /* Execute SQL query */
       W.exec( sql );
       W.commit();
