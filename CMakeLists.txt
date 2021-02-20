@@ -26,6 +26,7 @@ endif()
 project(freedomdb VERSION 0.0.1 LANGUAGES CXX)
 
 find_package(Boost REQUIRED)
+find_package(Threads REQUIRED)
 find_library(PQXX_LIB pqxx REQUIRED)
 find_library(PQ_LIB pq REQUIRED)
 
@@ -55,14 +56,15 @@ else()
 endif()
 set(CMAKE_CXX_STANDARD 20 CACHE STRING "C++ version selection")
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+set(CMAKE_CXX_FLAGS -pthread)
 
 add_library(freedomdb-static STATIC
-  source/empty.cpp
+  source/freedom_db.cpp
+  source/p2p/p2p.cpp
+  source/core/log.cpp
 )
-target_include_directories(freedomdb-static
-  PUBLIC
+include_directories(
   # project includes
-  ${PROJECT_SOURCE_DIR}/include
   ${PROJECT_SOURCE_DIR}/source
   ${PROJECT_SOURCE_DIR}/modules/msgpack/include
   ${Boost_INCLUDE_DIRS}
@@ -92,18 +94,18 @@ pybind11_add_module(freedomdb MODULE
 pybind11_extension(freedomdb)
 
 #### MAIN
-add_executable(freedomdb-tool 
-  source/main_test.cpp
+add_executable(freedomdb-tool
+  source/main.cpp
 )
 
 #### Tests
 add_subdirectory(modules/Catch2)
-add_executable(native-tests 
+add_executable(native-tests
   tests/main.cpp
 )
 target_link_libraries(native-tests PRIVATE Catch2::Catch2WithMain)
 
 #### installation TODO
-install(TARGETS freedomdb 
+install(TARGETS freedomdb
   DESTINATION nodest #${PYTHON_INSTALL}
 )
